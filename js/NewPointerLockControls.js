@@ -1,6 +1,6 @@
 
 
-THREE.PointerLockControls = function ( camera ) {
+THREE.NewPointerLockControls = function ( camera ) {
 
 	var scope = this;
 
@@ -45,6 +45,7 @@ THREE.PointerLockControls = function ( camera ) {
 			case 38: // up
 			case 87: // w
 				moveForward = true;
+				console.log("W key pushed");
 				break;
 
 			case 37: // left
@@ -92,11 +93,11 @@ THREE.PointerLockControls = function ( camera ) {
 
 	};
 
-	document.addEventListener( 'mousemove', onMouseMove, false );
-	document.addEventListener( 'keydown', onKeyDown, false );
-	document.addEventListener( 'keyup', onKeyUp, false );
+	document.addEventListener( 'mousemove', onMouseMove, true );
+	document.addEventListener( 'keydown', onKeyDown, true );
+	document.addEventListener( 'keyup', onKeyUp, true );
 
-	this.enabled = false;
+	this.enabled = true;
 
 	this.getObject = function () {
 
