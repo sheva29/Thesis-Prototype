@@ -1,63 +1,120 @@
 
-var container, scene, camera, renderer, keys, cameraFocus;
+//----------------------------------------------------------//
+//---------------------General Variables--------------------//
+//----------------------------------------------------------//
+
+var container, scene, camera, renderer, controls, time, ray;
 // console.log(scope.keys);
 
-//We assigned our keys here to a new variable to store them in an object
-keys = {
-	__setControl: function (n, state){
-		switch (n) {
-			//Left arrow key
-			case 37:
-				this.left = state;
-				break;
-			//Up arrow key
-			case 38:
-				this.up = state;
-				break;
-			//Right arrow key
-			case 39:
-				this.right = state;
-				break;
-			//Down arrow key
-			case 40:
-				this.down = state;
-				break;
-			//"W" key
-			case 87:
-				this.w = state;
-				break;
-			//"A" key
-			case 65:
-				this.a = state;
-				break;
-			//"S" key
-			case 83:
-				this.s = state;
-				break;
-			//"D" key
-			case 68:
-				this.d = state;
-				break;
-		}
-	}
-};
+//----------------------------------------------------------//
+//------This functions and general variables definition-----//
+//----------------------------------------------------------//
 
 function deg2Rad(x){
 	return x * Math.PI / 180;
 };
 
-//Here we pass our custom function to jQuery keyPressed
-$(document).keydown( function (e) {
-	keys.__setControl( e.keyCode, true);
-	// console.log("key has been pressed \n");
-});
+function rad2Deg(x){
+	return x * 180 / Math.PI;
+};
 
-//Here we pass our custom function to jQuery keyReleased
-$(document).keyup( function (e) {
-	keys.__setControl( e.keyCode, true );
-	keys.__setControl( e.keyCode, false );
+time = Date.now();
 
-});
+
+// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
+//----------------------------------------------------------//
+//-----------This is how we setup our controllers-----------//
+//----------------------------------------------------------//
+
+var blocker = document.getElementById( 'blocker' );
+
+var instructions = document.getElementById( 'instructions' );
+
+var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+
+if ( havePointerLock ) {
+
+    var element = document.body;
+
+    var pointerlockchange = function ( event ) {
+
+	    if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
+
+            controls.enabled = true;
+
+            blocker.style.display = 'none';
+
+	    } else {
+
+            controls.enabled = false;
+
+            blocker.style.display = '-webkit-box';
+            blocker.style.display = '-moz-box';
+            blocker.style.display = 'box';
+
+            instructions.style.display = '';
+	    }
+
+    }
+
+    var pointerlockerror = function ( event ) {
+
+            instructions.style.display = '';
+    }
+    // Hook pointer lock state change events
+    document.addEventListener( 'pointerlockchange', pointerlockchange, false );
+    document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+    document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
+
+    document.addEventListener( 'pointerlockerror', pointerlockerror, false );
+    document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
+    document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
+
+    instructions.addEventListener( 'click', function ( event ) {
+
+        instructions.style.display = 'none';
+
+        // Ask the browser to lock the pointer
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+
+        if ( /Firefox/i.test( navigator.userAgent ) ) {
+
+            var fullscreenchange = function ( event ) {
+
+                if ( document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element ) {
+
+                    document.removeEventListener( 'fullscreenchange', fullscreenchange );
+                    document.removeEventListener( 'mozfullscreenchange', fullscreenchange );
+
+                    element.requestPointerLock();
+                }
+
+            }
+
+            document.addEventListener( 'fullscreenchange', fullscreenchange, false );
+            document.addEventListener( 'mozfullscreenchange', fullscreenchange, false );
+
+            element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
+
+            element.requestFullscreen();
+
+        } else {
+
+                element.requestPointerLock();
+
+        }
+
+    }, false );
+
+} else {
+
+    instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
+
+}
+
+//----------------------------------------------------------//
+//-----------------------three.js stuff---------------------//
+//----------------------------------------------------------//
 
 function init() {
 
@@ -128,59 +185,21 @@ function init() {
 
 }
 
-function update(){
-
-		//Coefficient at which the camera will be moving
-		var distance = 2;
-
-		//Calculate next position
-		var x = Math.sin( camera.rotation.y ) * distance * -1;
-			y = Math.sin( camera.rotation.x ) * distance;
-			z = 3;
-
-	if(keys.w){
-
-		//Move the forward	
-		cameraFocus.z -= z;	
-		// cameraFocus.translateZ( -z );
-		
-		// cameraFocus.x -= z;
-		// cameraFocus.y -= z;
-		
-	}
-
-	if(keys.s){
-		//Move away from the target/reverse
-		camera.position.z += z;
-	}
-
-	if( keys.left){
-		//rotate the camera 
-		camera.rotation.y += deg2Rad(2.5);
-		console.log("key has been pressed");
-
-	}
-
-
-}
-
+//This is where we draw our scene and camera
 function render(){
-
-
 
 	renderer.render( scene, camera);
 
 }
 
 
-
-//This is where the update of
+//This is where the update 
 function animate() {
 
 	requestAnimationFrame( animate );
 	
 	controls.update();
-	update()
+	
 	render();
 
 
