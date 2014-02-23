@@ -19,6 +19,7 @@ THREE.NewPointerLockControls = function ( camera ) {
 	var moveRight = false;
 
 	var isOnObject = false;
+	var canJump = false;
 
 	var velocity = new THREE.Vector3();
 
@@ -61,6 +62,11 @@ THREE.NewPointerLockControls = function ( camera ) {
 			case 68: // d
 				moveRight = true;
 				break;
+
+			case 32: // space
+			if ( canJump === true ) velocity.y += 10;
+			canJump = false;
+			break;
 		}
 
 	};
@@ -162,6 +168,8 @@ THREE.NewPointerLockControls = function ( camera ) {
 
 			velocity.y = 0;
 			yawObject.position.y = 10;
+
+			canJump = true;
 
 		}
 

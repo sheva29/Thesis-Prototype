@@ -121,9 +121,7 @@ function init() {
 
 	container = $('#container');
 	var WIDTH = container.width(),
-		HEIGHT = container.height();
-
-	camera = new THREE.PerspectiveCamera( 45, WIDTH / HEIGHT, 0.1, 20000 );
+		HEIGHT = container.height();	
 
 	scene = new THREE.Scene();	
 
@@ -137,12 +135,14 @@ function init() {
 	//Here we append to our <div> container
 	container.append( renderer.domElement);	
 
+	camera = new THREE.PerspectiveCamera( 45, WIDTH / HEIGHT, 0.1, 20000 );
 	//Might need this stuff later
 	camera.position.z = 1000;
 	camera.position.y = 0;
 	camera.position.x = 20;
+	scene.add(camera);
 	// cameraFocus = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
-	// scene.add(camera);
+	
 	// camera.lookAt( cameraFocus);
 
 	//---------Lights---------//
@@ -218,7 +218,7 @@ function init() {
 	});
 
 	//Set the background of the scene
-	renderer.setClearColor(0xedecec);
+	// renderer.setClearColor(0xedecec);
 
 }
 

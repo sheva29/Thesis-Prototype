@@ -1,0 +1,68 @@
+<html>
+
+	<head>
+	<!-- My css -->
+	<link rel ="stylesheet" href="style.css">
+	<!--jQuery -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!--jQuery UI-->
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<!-- My main JS file -->
+	
+	</head>
+
+	<body>
+
+		<div class="main">
+
+			<section class="math1">
+
+				
+				<input class="limit" type="text" name="fname" size="1">				
+
+				<h1 id="summation">&Sigma;</h1> 
+				
+				<input class="index" type="text" name="fname" size="1">				
+
+				<h2 id="typical-element"> X </h2>
+
+				<input class="typical-element-index" type="text" name="fname" size="4">
+				<!-- <p class=""> -->
+
+				</form>
+
+
+			</section>
+
+			<section class="code1">
+
+				<h2 class="forloop" >for( int i = </h2>
+				
+				<input class="forLoopIndex" type="text" name="fname" size="1">				
+
+				<h2 class="forloop"> ; i < </h2> 
+
+				<input class="forLoopIndex" type="text" name="fname" size="1">
+				
+
+				<h2 class="forloop"> ; i = i + </h2> 
+
+				<input class="forLoopIndex" id="typicalElement" type="text" name="k" size="1" placeholder="k">
+				
+
+				<h2 class="forloop"> ) </h2> 
+
+
+			</section>
+
+		</div>
+
+	<script>
+		<?php include( "main.js"); ?>
+	</script>
+	
+	</body>
+
+
+</html>
