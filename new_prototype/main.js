@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var k;
 
 	var forLoopIndex = [];
+	var forloops = $('.forLoopIndex');
 	var n;
 	var test = [] ;
 
@@ -23,9 +24,25 @@ $(document).ready(function() {
 	});
 
 	//Now we need to obtain our maximun in the for loop to get our index
-	$('.forLoopIndex').keyup(function(){
+	forloops.keyup(function(){
 
-		forLoopIndex = $(this).val();
+		if( forLoopIndex.length < 2){
+
+			forloops.each(function(){
+
+					forLoopIndex.push($(this).val());
+					console.log(forLoopIndex);
+									
+				
+			});
+
+		}else if( forLoopIndex.length > 2){
+
+			forLoopIndex = [];
+		}
+
+	});
+
 
 
 		// test = [].map.call(forLoopIndex, function( input){
@@ -34,10 +51,10 @@ $(document).ready(function() {
 
 		// }).join( '|' );
 
-		console.log(forLoopIndex);		
+			
 
 
-	});
+
 
 
 	

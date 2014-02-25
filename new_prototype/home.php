@@ -39,11 +39,11 @@
 
 				<h2 class="forloop" >for( int i = </h2>
 				
-				<input class="forLoopIndex" type="text" name="fname" size="1">				
+				<input class="forLoopIndex" type="text" name="i" size="1" placeholder="i">				
 
 				<h2 class="forloop"> ; i < </h2> 
 
-				<input class="forLoopIndex" type="text" name="fname" size="1">
+				<input class="forLoopIndex" type="text" name="n" size="1" placeholder="n">
 				
 
 				<h2 class="forloop"> ; i = i + </h2> 
