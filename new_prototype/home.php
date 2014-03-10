@@ -1,14 +1,17 @@
 <html>
 
 	<head>
-	<!-- My css -->
-	<link rel ="stylesheet" href="style.css">
-	<!--jQuery -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<!--jQuery UI-->
-	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-	<!-- My main JS file -->
+
+		<!-- My css -->
+		<link rel ="stylesheet" href="style.css">
+		<!--jQuery -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!--jQuery UI-->
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<!--We include two.js here-->
+		<script src="two.min.js"></script>
+		
 	
 	</head>
 
@@ -56,9 +59,13 @@
 
 			</section>
 
+			<div id="draw-shapes">
+			<div>
+
 		</div>
 
 	<script>
+		//Main JS file
 		<?php include( "main.js"); ?>
 	</script>
 	

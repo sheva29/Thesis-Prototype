@@ -8,6 +8,12 @@ $(document).ready(function() {
 	var n;
 	var test = [] ;
 
+	//two.js  General variables
+	var elem = document.getElementById('draw-shapes').children[0];
+	var params = { width: 285, height: 200 };
+	var two = new Two(params).appendTo(elem);
+
+
 	//We store the value of our k index in a variable from the end of our for loop to store in our summation equation
 	$('#typicalElement').keyup(function(){
 
@@ -18,8 +24,7 @@ $(document).ready(function() {
 		
 		//We use .val to append to a input
 		$(".typical-element-index").val( k );
-		console.log(k); 
-		
+		console.log(k); 		
 
 	});
 
@@ -31,7 +36,7 @@ $(document).ready(function() {
 			forloops.each(function(){
 
 					forLoopIndex.push($(this).val());
-					console.log(forLoopIndex);
+					console.log(forLoopIndex);					
 									
 				
 			});
@@ -41,8 +46,22 @@ $(document).ready(function() {
 			forLoopIndex = [];
 		}
 
-	});
 
+
+	});
+	
+	for( var i = 1; i < 6; i++){
+
+		var circle = two.makeCircle(50*i, 100, 20);
+		
+		circle.fill = '#FF8000';
+		circle.stroke = 'orangered'; // Accepts all valid css color
+		circle.linewidth = 5;
+
+	}
+
+	two.update();
+	
 
 
 		// test = [].map.call(forLoopIndex, function( input){
@@ -50,13 +69,6 @@ $(document).ready(function() {
 		// 	return input.value;
 
 		// }).join( '|' );
-
-			
-
-
-
-
-
 	
 
 });
