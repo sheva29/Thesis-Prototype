@@ -11,8 +11,8 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 		<!--We include two.js here-->
 		<script src="two.min.js"></script>
-		
-	
+
+
 	</head>
 
 	<body>
@@ -21,12 +21,12 @@
 
 			<section class="math1">
 
-				
-				<input class="limit" type="text" name="fname" size="1">				
 
-				<h1 id="summation">&Sigma;</h1> 
-				
-				<input class="index" type="text" name="fname" size="1">				
+				<input class="limit" type="text" name="fname" size="1">
+
+				<h1 id="summation">&Sigma;</h1>
+
+				<input class="index" type="text" name="fname" size="1">
 
 				<h2 id="typical-element"> X </h2>
 
@@ -41,20 +41,20 @@
 			<section class="code1">
 
 				<h2 class="forloop" >for( int i = </h2>
-				
-				<input class="forLoopIndex" type="text" name="i" size="1" placeholder="i">				
 
-				<h2 class="forloop"> ; i < </h2> 
+				<input class="forLoopIndex" type="text" name="i" size="1" placeholder="i">
+
+				<h2 class="forloop"> ; i < </h2>
 
 				<input class="forLoopIndex" type="text" name="n" size="1" placeholder="n">
-				
 
-				<h2 class="forloop"> ; i = i + </h2> 
 
-				<input class="forLoopIndex" id="typicalElement" type="text" name="k" size="1" placeholder="k">
-				
+				<h2 class="forloop"> ; i = i + </h2>
 
-				<h2 class="forloop"> ) </h2> 
+				<input class="forLoopIndex" id="typicalElement" type="text" name="k" size="1" placeholder="10">
+
+
+				<h2 class="forloop"> ); </h2>
 
 
 			</section>
@@ -65,10 +65,12 @@
 		</div>
 
 	<script>
-		//Main JS file
-		<?php include( "main.js"); ?>
-	</script>
 	
+		//Main JS file
+		<?php include "main.js"; ?>
+
+	</script>
+
 	</body>
 
 
