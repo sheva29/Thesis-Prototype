@@ -30,7 +30,7 @@
 
 				<h2 id="typical-element"> X </h2>
 
-				<input class="typical-element-index" type="text" name="fname" size="4">
+				<input class="typical-element-index" type="text" name="fname" size="6">
 				<!-- <p class=""> -->
 
 				</form>
