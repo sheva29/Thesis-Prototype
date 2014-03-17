@@ -121,8 +121,4 @@ $(document).ready(function () {
         }
         two.update();
     }
-    // console.log(typicalElement.val());
-    // test = [].map.call(forLoopIndex, function( input){
-    // 	return input.value;
-    // }).join( '|' );
 });
