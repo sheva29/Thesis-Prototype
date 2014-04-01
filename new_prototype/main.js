@@ -3,15 +3,17 @@ $(document).ready(function () {
     //-----------------------------Global Variables-------------------------//
     //----------------------------------------------------------------------//
     var typicalElementInput = $('#typicalElement');
+    var indexOnSigma = $('.index');
+    var sigmaIndex = $('#forloop-init');
+    var forloops = $('.forLoopIndex');
+    var sigmaLimit = $('.limit');
+    var sigmaDefinition = $('#sigma-definition')
     var tempTypicalElementVal;
     var k;
     var forLoopIndex = [];
-    var forloops = $('.forLoopIndex');
     var n;
     var test = [];
-    var sigmaLimit = $('.limit');
     var tempSigmaLimitVal;
-    var sigmaIndex = $('#forloop-init');
     var tempSigmaIndex;
     //----------------------------------------------------------------------//
     //------------------------Two.js Global Variables-----------------------//
@@ -22,6 +24,10 @@ $(document).ready(function () {
         height: 200
     };
     var two = new Two(params).appendTo(elem);
+    //----------------------------------------------------------------------//
+    //----------------------------Hidden Elements---------------------------//
+    //----------------------------------------------------------------------//
+    sigmaDefinition.hide();
     //----------------------------------------------------------------------//
     //----------------------------Event Listeners---------------------------//
     //----------------------------------------------------------------------//
@@ -53,10 +59,16 @@ $(document).ready(function () {
         appendingToSigmaIndex();
         console.log(forLoopIndex);
     });
-    //The initial value of the
+    //The initial value of the index operator int he forloop
     sigmaIndex.keyup(function () {
+        console.log("We are here");
         forLoopIndex[0] = $(this).val();
-        typicalElementInput.val(forLoopIndex[2]);
+        indexOnSigma.val(forLoopIndex[0]);
+    });
+    //The initial value of the index in the Symbol
+    indexOnSigma.keyup(function () {
+        forLoopIndex[0] = $(this).val();
+        sigmaIndex.val(forLoopIndex[0]);
     });
     //We store the value of our k index in a variable from the end of our for loop to store in our summation equation
     typicalElementInput.keyup(function () {
@@ -71,8 +83,14 @@ $(document).ready(function () {
     //----------------------------------------------------------------------//
     //Let's use this function to connect the value with our K input field
     function appendingToSigmaLimit() {
-        tempSigmaLimitVal = Math.floor((forLoopIndex[1] - forLoopIndex[0]) / forLoopIndex[2]);
-        sigmaLimit.val(tempSigmaLimitVal);
+        if (tempSigmaLimitVal == 0) {
+            tempSigmaLimitVal = 1;
+            console.log(tempSigmaLimitVal);
+            sigmaLimit.val(tempSigmaLimitVal);
+        } else {
+            tempSigmaLimitVal = Math.floor((forLoopIndex[1] - forLoopIndex[0]) / forLoopIndex[2]);
+            sigmaLimit.val(tempSigmaLimitVal);
+        }
     }
 
     function appendingToSigmaIndex() {

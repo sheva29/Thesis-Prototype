@@ -1,10 +1,10 @@
+/*Main CSS for the newest prototype*/
 body {
 
 	background-color: white;
 }
 
 .main {
-
 	margin: 0 auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -12,79 +12,65 @@ body {
 	overflow: hidden;
 }
 
-.math1 {
-
+.math1{
 	float: left;
 	width: 50%;
-
 }
 
-.code1 {
-
+.code1{
 	float: left;
 }
 
-#summation {
-
+#summation{
 	font-size: 90px;
 	margin-top: 80px;
 	margin-left: 80px;
-	
-
 }
 
-.limit {
-
+.limit{
 	position: absolute;
 	margin-left: 88;
 	margin-top: 69;
-
 }
 
-.index {
-
+.index{
 	position: absolute;
 	margin-left: 88;
 	margin-top: -80;
-
 }
 
-#typical-element {
-
+#typical-element{
 	position: absolute;
 	margin-left: 145;
 	margin-top: -132;
 }
 
 .typical-element-index{
-
 	position: absolute;
 	margin-left: 165;
 	margin-top: -115;
-
 }
 
-.forloop{
-
-	
+.forloop{	
 	float: left;
 	margin-top: 122;
-
 }
-
 
 .forLoopIndex{
-
 	float: left;
 	margin-top: 125;
-
 }
 
-#draw-shapes {
-
+#draw-shapes{
 	overflow: auto;
 	float: right;
 	margin-right: 50px;
+}
+
+#sigma-definition{
+	border-radius: 25px;
+	box-shadow: 10px 10px 10px 10px #888888;
+	z-index: 5000;
 }
 
 

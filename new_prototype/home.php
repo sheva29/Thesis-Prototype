@@ -25,6 +25,16 @@
 				<input class="limit" type="text" name="fname" size="1">
 
 				<h1 id="summation">&Sigma;</h1>
+				<article id="sigma-definition">
+					<h2 id="sigma-title"> &Sigma</h2>
+					<p id="sigma-content" >
+						The summation sign. This appears as the symbol, S, which is the Greek upper
+						 case letter, S. The summation sign, S, instructs us to sum the elements of a sequence. 
+						 A typical element of the sequence which is being summed appears to the right of the summation sign.
+					</p>
+
+
+				</article>
 
 				<input class="index" type="text" name="fname" size="1">
 
@@ -42,7 +52,7 @@
 
 				<h2 class="forloop" >for( int i = </h2>
 
-				<input class="forLoopIndex" id="forloop-init"type="text" name="i" size="1" placeholder="i">
+				<input class="forLoopIndex" id="forloop-init" type="text" name="i" size="1" placeholder="i">
 
 				<h2 class="forloop"> ; i < </h2>
 
@@ -54,7 +64,12 @@
 				<input class="forLoopIndex" id="typicalElement" type="text" name="k" size="1" placeholder="10">
 
 
-				<h2 class="forloop"> ); </h2>
+				<h2 class="forloop"> ){ </h2>
+
+				<br>
+
+				<h2> circle()
+
 
 
 			</section>
