@@ -25,17 +25,9 @@ $(document).ready(function () {
     //----------------------------------------------------------------------//
     //----------------------------Event Listeners---------------------------//
     //----------------------------------------------------------------------//
-    //We store the value of our k index in a variable from the end of our for loop to store in our summation equation
-    typicalElementInput.keyup(function () {
-        //We store our value of the input and use it to pass it to the K input in the sigma
-        tempTypicalElementVal = $(this).val();
-        _index();
-        //This draws the circles based on the input number
-        circles();
-    });
     //Now we need to obtain our maximun in the for loop to get our index
     forloops.keyup(function () {
-        //THIS WAS MY FIRST TRY TO PUSH THE DATA TO AN ARRAY
+        //THIS WAS MY FIRST TRY, TO PUSH THE DATA TO AN ARRAY
         // if (forLoopIndex.length < 2 && forLoopIndex >= 0) {
         // forloops.each(function () {
         //     forLoopIndex.push($(this).val());
@@ -55,15 +47,24 @@ $(document).ready(function () {
         //});
         //AND THIS IS THE MOST EFFICIENT WAY TO DO IT.
         //It allows the size of the Array to stay the same
+        forLoopIndex[0] = 0;
         forLoopIndex[$(this).index('.forLoopIndex')] = $(this).val();
         appendingToSigmaLimit();
-        appendingToSigmaIndex()
+        appendingToSigmaIndex();
         console.log(forLoopIndex);
     });
     //The initial value of the
     sigmaIndex.keyup(function () {
         forLoopIndex[0] = $(this).val();
         typicalElementInput.val(forLoopIndex[2]);
+    });
+    //We store the value of our k index in a variable from the end of our for loop to store in our summation equation
+    typicalElementInput.keyup(function () {
+        //We store our value of the input and use it to pass it to the K input in the sigma
+        tempTypicalElementVal = $(this).val();
+        _index();
+        //This draws the circles based on the input number
+        circles();
     });
     //----------------------------------------------------------------------//
     //-------------------------------Functions------------------------------//
