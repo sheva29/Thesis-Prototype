@@ -27,6 +27,10 @@ body {
 	margin-left: 80px;
 }
 
+#summation:hover{
+	cursor: hand;	
+}
+
 .limit{
 	position: absolute;
 	margin-left: 88;
@@ -71,6 +75,75 @@ body {
 	border-radius: 25px;
 	box-shadow: 10px 10px 10px 10px #888888;
 	z-index: 5000;
+	position: absolute;
+	width: 30%;
+	background-color: blue;
+}
+
+#sigma-title {
+	width: 5%;
+	float: left;
+}
+
+#sigma-definition:hover{
+	cursor:move;
+}
+
+#sigma-exit{
+	float: right;
+
+}
+
+#sigma-content{
+	clear: both;
+}
+
+#sigma-exit:hover{
+	cursor: hand;
+}
+
+#circle-equation{
+	margin-left: 20px;
+	margin-bottom: 0;
+}
+
+#last-curly-bracket{
+	margin-top: 0;
+}
+
+#forSymbol{
+	cursor: hand;
+}
+
+#forloop-definition{
+	border-radius: 25px;
+	box-shadow: 10px 10px 10px 10px #888888;
+	z-index: 5000;
+	position: absolute;
+	width: 30%;
+	background-color: blue;
+}
+
+#forloop-title {
+	width: 5%;
+	float: left;
+}
+
+#forloop-definition:hover{
+	cursor:move;
+}
+
+#forloop-exit{
+	float: right;
+
+}
+
+#forloop-content{
+	clear: both;
+}
+
+#forloop-exit:hover{
+	cursor: hand;
 }
 
 

@@ -7,7 +7,13 @@ $(document).ready(function () {
     var sigmaIndex = $('#forloop-init');
     var forloops = $('.forLoopIndex');
     var sigmaLimit = $('.limit');
-    var sigmaDefinition = $('#sigma-definition')
+    var sigmaDefinition = $('#sigma-definition');
+    var forloopDefinition = $('#forloop-definition');
+    var sigmaSymbol = $('#summation');
+    var sigmaExit = $('#sigma-exit');
+    var forLoopMax = $('#forloop-max');
+    var forSymbol = $('#forSymbol');
+    var forloopExit = $('#forloop-exit');
     var tempTypicalElementVal;
     var k;
     var forLoopIndex = [];
@@ -15,6 +21,7 @@ $(document).ready(function () {
     var test = [];
     var tempSigmaLimitVal;
     var tempSigmaIndex;
+    var amountOfCircles;
     //----------------------------------------------------------------------//
     //------------------------Two.js Global Variables-----------------------//
     //----------------------------------------------------------------------//
@@ -28,9 +35,35 @@ $(document).ready(function () {
     //----------------------------Hidden Elements---------------------------//
     //----------------------------------------------------------------------//
     sigmaDefinition.hide();
+    forloopDefinition.hide();
     //----------------------------------------------------------------------//
     //----------------------------Event Listeners---------------------------//
     //----------------------------------------------------------------------//
+    //
+    //When clicked on the sigma symbol we get a div with the definition of it
+    sigmaSymbol.click(function () {
+        sigmaDefinition.slideToggle(500, function () {
+            //And we can drag it!
+            sigmaDefinition.draggable();
+        });
+    });
+    //If we wanna close it!!
+    sigmaExit.click(function () {
+        sigmaDefinition.hide();
+    });
+    //
+    //When clicked on the forloop symbol we get a definition for forloops
+    forSymbol.click(function () {
+        forloopDefinition.slideToggle(500, function () {
+            //And we can drag it!
+            forloopDefinition.draggable();
+        });
+    });
+    //If we wanna close it!!
+    forloopExit.click(function () {
+        console.log("I'm being clicked");
+        forloopDefinition.hide();
+    });
     //Now we need to obtain our maximun in the for loop to get our index
     forloops.keyup(function () {
         //THIS WAS MY FIRST TRY, TO PUSH THE DATA TO AN ARRAY
@@ -53,15 +86,20 @@ $(document).ready(function () {
         //});
         //AND THIS IS THE MOST EFFICIENT WAY TO DO IT.
         //It allows the size of the Array to stay the same
-        forLoopIndex[0] = 0;
+        // forLoopIndex[0] = 0;
         forLoopIndex[$(this).index('.forLoopIndex')] = $(this).val();
         appendingToSigmaLimit();
         appendingToSigmaIndex();
+        console.log('The amount of circles is: ' + amountOfCircles);
         console.log(forLoopIndex);
+        //We use the difference between the initial value of the iterator and the limit to set our number of circles
+        amountOfCircles = (forLoopIndex[1] - forLoopIndex[0]);
+        //This draws the circles based on the input number
+        circles();
     });
     //The initial value of the index operator int he forloop
     sigmaIndex.keyup(function () {
-        console.log("We are here");
+        // console.log("We are here");
         forLoopIndex[0] = $(this).val();
         indexOnSigma.val(forLoopIndex[0]);
     });
@@ -70,13 +108,12 @@ $(document).ready(function () {
         forLoopIndex[0] = $(this).val();
         sigmaIndex.val(forLoopIndex[0]);
     });
-    //We store the value of our k index in a variable from the end of our for loop to store in our summation equation
-    typicalElementInput.keyup(function () {
+    //We store the value of our k index in a variable from the limit of our for loop to store in our summation equation.
+    //This will determine the amount of circles we want to draw.
+    forLoopMax.keyup(function () {
         //We store our value of the input and use it to pass it to the K input in the sigma
         tempTypicalElementVal = $(this).val();
         _index();
-        //This draws the circles based on the input number
-        circles();
     });
     //----------------------------------------------------------------------//
     //-------------------------------Functions------------------------------//
@@ -113,22 +150,20 @@ $(document).ready(function () {
         var xSpacing;
         var circleLineWidth;
         var circleColor;
-        for (var i = 1; i <= typicalElementInput.val(); i++) {
-            // console.log("we are here " + i);
-            // console.log(params.height);
-            if (typicalElementInput.val() > 20) {
+        for (var i = 1; i <= amountOfCircles; i++) {
+            if (amountOfCircles > 20) {
                 diameter = 5;
                 xSpacing = 15;
                 circleLineWidth = 1;
                 circleColor = '#204dd4';
             }
-            if (typicalElementInput.val() >= 10 && typicalElementInput.val() <= 20) {
+            if (amountOfCircles >= 10 && forLoopMax.val() <= 20) {
                 diameter = 10;
                 xSpacing = 25;
                 circleLineWidth = 2;
                 circleColor = '#0f9cd4';
             }
-            if (typicalElementInput.val() < 10) {
+            if (amountOfCircles < 10) {
                 diameter = 20;
                 xSpacing = 60;
                 circleLineWidth = 4;
