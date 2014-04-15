@@ -17,6 +17,12 @@ $(document).ready(function () {
 	var circlePickerSelector = false;
 	var circles = [];
 	var circleCounter = 1;
+	//We will store the arrays for the position in the object
+	var xPositionsCircles = {
+		// nestedArray: [4, 5, 6],
+		// nestedArray2: [6, 6, 7]
+	};
+	// console.log(myArray.nestedArray[1]);
 	//---------------------------------------------------------------------------//
 	//------------------------------Event Listeners------------------------------//
 	//---------------------------------------------------------------------------//
@@ -34,12 +40,10 @@ $(document).ready(function () {
 		// console.log("This is the position of the mouse in X: " + e.pageX);
 		// console.log("This is the position of the mouse in Y: " + e.pageY);
 		// console.log(circles);
-		// if (circles[0][0]["id"] == 0) {
-		// 	console.log(" I have been added");
+		// //Use this function to check if the id have been added to the circles
+		// for (var i = 0; i < circles.length; i++) {
+		// 	console.log(circles[i][0]['id']);
 		// }
-		for (var i = 0; i < circles.length; i++) {
-			console.log(circles[i][0]['id']);
-		}
 	});
 	// This is for my picker
 	circlePicker.click(function () {
@@ -64,12 +68,9 @@ $(document).ready(function () {
 	//---------------------------------------------------------------------------//
 	//-------------------------------- Functions --------------------------------//
 	//---------------------------------------------------------------------------//
-	var currentX;
-	var currentY;
-
 	function makeCircle(mouseX, mouseY) {
-		//var xx;
-		// console.log(circleCounter);
+		//We call it before our circles are dragged so that their array is waiting to store the information
+		addingArrays(circleCounter);
 		var radius;
 		var fill;
 		var thisCirclesID = String(new Date().getTime());
@@ -111,8 +112,13 @@ $(document).ready(function () {
 					cx: this.sizer.ox + dx,
 					cy: this.sizer.oy + dy
 				});
-				currentX = this.attrs.cx;
-				currentY = this.attrs.cy;
+				codeElement.html(['circle(' + this.attrs.cx + ',' + this.attrs.cx + ', radius);']);
+				// posXDragged.push(this.attrs.cx);
+				xPositionsCircles.setOfXpos1.push(this.attrs.cx);
+				if (xPositionsCircles.setOfXpos1.length == 5) {
+					xPositionsCircles.setOfXpos1.shift();
+				}
+				console.log(xPositionsCircles.setOfXpos1);
 			},
 			up = function () {
 				// restoring state
@@ -147,14 +153,20 @@ $(document).ready(function () {
 		// And then finally push it to our array
 		circles.push(circle);
 		circleSet.push(circle);
-		//This adds code to the page
+		//This writes the code of every circle in the canvas
 		addCode(mouseY, mouseY);
+		if (circleCounter == 1) {
+			xPositionsCircles.setOfXpos1.push(8);
+			console.log(xPositionsCircles.setOfXpos1[0]);
+		} else {
+			console.log("doesn't exist yet");
+		}
+		console.log(xPositionsCircles.setOfXpos1);
 		circleCounter++;
-		// console.log(circle);
+		// console.log(circles);
 		// console.log(move);
 		// console.log(circleSet);
 		// console.log(circleCounter);
-		console.log(currentX, currentY);
 	}
 
 	function findPos(obj) {
@@ -220,11 +232,15 @@ $(document).ready(function () {
 		newLineOfCode.innerHTML = 'circle(' + cirX + ',' + cirY + ', radius) </br>';
 		codeSelector.appendChild(newLineOfCode);
 	}
-
-	function returnCircleXPos(dx) {
-		this.attr({
-			cx: this.ox + dx
-		});
-		return this.attr('cy');
+	//Here we add arrays to our object. the idea is to store the position of the circles when dragged
+	function addingArrays(counter) {
+		for (var i = 1; i <= counter; i++) {
+			xPositionsCircles["setOfXpos" + i] = [];
+			console.log(xPositionsCircles);
+			// console.log(xPositionCircles.set)
+			// if (xPositionsCircles["setOfXpos" + i].length == 5) {
+			// 	xPositionCircles["setOfXpos" + i].shift();
+			// }
+		}
 	}
 });
