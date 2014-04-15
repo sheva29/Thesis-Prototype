@@ -1,0 +1,41 @@
+#main-container{
+	width: 900px;
+	height: 600px;
+	margin: 200px auto;
+	overflow: auto;
+}
+
+#container{
+	margin-left: 25px;
+	background-color: gray;
+	width: 500px;
+	height: 500px;
+	float: left;
+}
+
+#picker{	
+	float: left;
+	overflow: hidden;
+	width: 75px;
+}
+
+#picker-circle{
+	overflow: auto;
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: orange;
+}
+#picker-text{
+
+
+}
+
+#code{
+	float:left;
+	width: 300px;
+	overflow: auto;
+	height: 100%;
+	background-color: lightgreen;
+}
+
