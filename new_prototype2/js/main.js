@@ -20,6 +20,7 @@ $(document).ready(function () {
 	//This last two variables add sequential IDs to our circles
 	var circleCounter = 1;
 	var sizerCounter = 1000;
+	var colorCounter = 10000;
 	//---------------------------------------------------------------------------//
 	//------------------------------Event Listeners------------------------------//
 	//---------------------------------------------------------------------------//
@@ -67,6 +68,7 @@ $(document).ready(function () {
 	//---------------------------------------------------------------------------//
 	//-------------------------------- Functions --------------------------------//
 	//---------------------------------------------------------------------------//
+	//This is our main function. Here we store all the values and attributes for our circles
 	function makeCircle(mouseX, mouseY) {
 		//We call it before our circles are dragged so that their array is waiting to store the information
 		// addingArrays(circleCounter);
@@ -88,6 +90,7 @@ $(document).ready(function () {
 		circles.push(circle);
 		//Passing mouseX,mouseY and the circle counter
 		updateView();
+		passingColor();
 		var handlerPos = [mouseX + 35, mouseY + 35];
 		var s = canvas.circle(handlerPos[0], handlerPos[1], 10).attr({
 			fill: "hsb(.8, .5, .5)",
@@ -101,7 +104,7 @@ $(document).ready(function () {
 		var newSizerClass = $(".sizer");
 		// console.log(s);
 		s.hide();
-		//We now assign a handler for each little circle added and a main circle
+		//We now assign a handler for each little circle added and a main circle in order to hide them
 		var circleID = $("#" + String(circleCounter));
 		var sizerID = $("#" + String(sizerCounter));
 		console.log(s.node.id);
@@ -249,12 +252,51 @@ $(document).ready(function () {
 			var item = circles[i];
 			// html+="<li>Id is :"+item.id+"</li>"
 			// outputString += "circle (" + item.attrs.cx + " ," + item.attrs.cy + ",radius); ";
-			html += "<li> var radius = " + parseInt(item.attrs.r) + "; </li>" + "<li> circle (" + item.attrs.cx + " ," + item.attrs.cy + ", radius); </li>";
+			html += "<li> var color = <div class='circleColor' id='" + colorCounter + "' contentEditable autocorrect='off'> type a color </div>; </li>" + "<li> var radius = " + parseInt(item.attrs.r) + "; </li>" + "<li> circle (" + item.attrs.cx + " ," + item.attrs.cy + ", radius); </li>";
 			// outputString += "\n";
 		}
 		html += "</ul> <br>";
 		// return outputString;
 		return html;
+	}
+	//We are gonna use this function to pass the color to our circles from our code section
+	function passingColor() {
+		var $circleColor = $('.circleColor');
+		$circleColor.click(function () {
+			console.log("Color input");
+		});
+		var $contentEditable = $('[contenteditable]');
+		$contentEditable.on('focus', function () {
+			var $this = $(this);
+			$this.data('before', $this.html());
+			return $this;
+		});
+		$contentEditable.on('blur keyup paste', function () {
+			var $this = $(this);
+			if ($this.data('before') !== $this.html()) {
+				$this.data('before', $this.html());
+				$this.trigger('change');
+			}
+			return $this;
+		});
+		var colorArray = [],
+			colorIndex = 0,
+			typeTimer,
+			typeInterval = 2000,
+			lastColor;
+		$circleColor.change(function () {
+			var inputText = $(this).text();
+			if (inputText.length > 0) {
+				$.ajax({
+					dataType: 'jsonp',
+					url: "http://www.colourlovers.com/api/colors?keywords=" + inputText + "&numResults=20&format=json&jsonCallback=?"
+				}).then(function (data) {
+					colorArray = data.map(function (color) {
+						return toProperHex(color.hex);
+					});
+				})
+			}
+		});
 	}
 	// setInterval((function (){ addCode(xPositionsCircles)}))
 });
