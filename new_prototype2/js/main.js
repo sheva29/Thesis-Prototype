@@ -19,7 +19,7 @@ $(document).ready(function () {
 	var circles = [];
 	//This last two variables add sequential IDs to our circles
 	var circleCounter = 1;
-	var sizerCounter = 1;
+	var sizerCounter = 1000;
 	//---------------------------------------------------------------------------//
 	//------------------------------Event Listeners------------------------------//
 	//---------------------------------------------------------------------------//
@@ -56,7 +56,6 @@ $(document).ready(function () {
 		fill: "blue",
 		stroke: "none",
 		opacity: .5,
-		id: "circle2"
 	});
 	var ourCircle = $("circle").last();
 	ourCircle.attr("id", "mauricio");
@@ -85,7 +84,6 @@ $(document).ready(function () {
 			"id": circleCounter,
 			"class": "main-circle"
 		});
-		var mainCircle = $('.main-circle');
 		// And then finally push it to our array of circles
 		circles.push(circle);
 		//Passing mouseX,mouseY and the circle counter
@@ -99,25 +97,24 @@ $(document).ready(function () {
 		//We add an id and a class to our little circle.
 		s.node.id = sizerCounter;
 		var sizerClass = $('circle').last();
-		sizerClass.attr("class", "sizer");
+		sizerClass.attr("class", "main-circle sizer");
 		var newSizerClass = $(".sizer");
-		console.log(s);
-		//We want our little sizer to be hidden, we will call everytime he hover oru main circle
+		// console.log(s);
 		s.hide();
-		//Everytime we hover on the main circle the sizer shows up
-		mainCircle.mouseenter(function () {
-			// console.log("I'm being mouseover");
-			newSizerClass.toggle();
+		//We now assign a handler for each little circle added and a main circle
+		var circleID = $("#" + String(circleCounter));
+		var sizerID = $("#" + String(sizerCounter));
+		console.log(s.node.id);
+		circleID.mouseenter(function () {
+			sizerID.toggle();
 		});
-		//When we leave our sizer disappears
-		mainCircle.mouseleave(function () {
-			newSizerClass.hide();
+		circleID.mouseleave(function () {
+			sizerID.hide();
 		});
-		//Same for the sizer
-		newSizerClass.mouseenter(function () {
+		sizerID.mouseenter(function () {
 			$(this).toggle();
 		});
-		newSizerClass.mouseleave(function () {
+		sizerID.mouseleave(function () {
 			$(this).hide();
 		});
 		//We add some resizing and dragging properties
@@ -133,8 +130,7 @@ $(document).ready(function () {
 			this.sizer.attr({
 				opacity: 1
 			});
-		},
-			move = function (dx, dy) {
+		}, move = function (dx, dy) {
 				// move will be called with dx and dy
 				this.attr({
 					cx: this.ox + dx,
@@ -146,24 +142,7 @@ $(document).ready(function () {
 				});
 				//This is the key function to change 
 				updateModel(this.attrs.cx, this.attrs.cy, this.node.id, this.attrs.r);
-				// if (xPositionsCircles.setOfXpos1.length == 5) {
-				// 	xPositionsCircles.setOfXpos1.shift();
-				// 	// console.log(xPositionsCircles.setOfXpos1);
-				// }
-				// for (var key in xPositionsCircles) {
-				// 	var obj = xPositionsCircles[key];
-				// 	for (var prop in obj) {
-				// 		console.log(obj[3]);
-				// 		obj[prop].push(this.attrs.cx);
-				// 	}
-				// 	// This is an alternative method using
-				// 	for (var i = 0; i < obj.length; i++) {
-				// 		// console.log(obj[i]);
-				// 		obj[i]
-				// 	}
-				// }
-			},
-			up = function () {
+			}, up = function () {
 				// restoring state
 				this.attr({
 					opacity: .5
@@ -171,15 +150,12 @@ $(document).ready(function () {
 				this.sizer.attr({
 					opacity: .5
 				});
-			},
-			rstart = function () {
+			}, rstart = function () {
 				// storing original coordinates
 				this.ox = this.attr("cx");
 				this.oy = this.attr("cy");
 				this.big.or = this.big.attr("r");
-			},
-			posx = function () {},
-			rmove = function (dx, dy) {
+			}, posx = function () {}, rmove = function (dx, dy) {
 				// move will be called with dx and dy
 				this.attr({
 					cx: this.ox + dy,
@@ -208,9 +184,6 @@ $(document).ready(function () {
 				curleft += obj.offsetLeft;
 				curtop += obj.offsetTop;
 			} while (obj == obj.offsetParent);
-			// console.log(curleft);
-			// console.log(curtop);
-			// return [curleft, curtop];
 		}
 		return [curleft, curtop];
 	}
