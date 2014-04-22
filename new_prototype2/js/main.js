@@ -17,10 +17,17 @@ $(document).ready(function () {
 	var circlePickerSelector = false;
 	//We use this array to store all the different circles that get drawn on the screen
 	var circles = [];
+	//This is to assign color to the circle
 	//This last two variables add sequential IDs to our circles
 	var circleCounter = 1;
 	var sizerCounter = 1000;
 	var colorCounter = 10000;
+	//Color variables
+	var colorArray = [],
+		colorIndex = 0,
+		typeTimer,
+		typeInterval = 2000,
+		lastColor;
 	//---------------------------------------------------------------------------//
 	//------------------------------Event Listeners------------------------------//
 	//---------------------------------------------------------------------------//
@@ -279,11 +286,9 @@ $(document).ready(function () {
 			}
 			return $this;
 		});
-		var colorArray = [],
-			colorIndex = 0,
-			typeTimer,
-			typeInterval = 2000,
-			lastColor;
+		$circleColor.focus(function () {
+			console.log(colorArray);
+		});
 		$circleColor.change(function () {
 			var inputText = $(this).text();
 			if (inputText.length > 0) {
@@ -294,9 +299,56 @@ $(document).ready(function () {
 					colorArray = data.map(function (color) {
 						return toProperHex(color.hex);
 					});
-				})
+					var hex = colorArray[colorIndex];
+					$circleColor.css("color", hex);
+					console.log(hex);
+				});
 			}
 		});
+		$circleColor.keyup(function () {
+			typeTimer = setTimeout(completeColor, typeInterval);
+		});
+		$circleColor.keydown(function (e) {
+			if (e.keyCode == 13 || e.charCode == 13) {
+				var color = $circleColor.css("color");
+				var text = $circleColor.text();
+				return false;
+			} else if (e.keyCode == 38 || e.charCode == 38) {
+				toggleColor('up');
+				return false;
+			} else if (e.keyCode == 40 || e.charCode == 40) {
+				toggleColor('down');
+				return false;
+			}
+			clearTimeout(typeTimer);
+		});
+		console.log("I have been called!");
+	}
+
+	function toProperHex(hex) {
+		hex = hex.toLowerCase();
+		return hex ? hex != 'ffffff' ? "#" + hex : "#eee" : "#000";
+	}
+
+	function toggleColor(word) {
+		if (word == 'up') {
+			colorIndex++;
+			if (colorIndex >= colorArray.length) colorIndex = 0;
+		} else {
+			colorIndex--;
+			if (colorIndex < 0) colorIndex = colorArray.length - 1;
+		}
+		var hex = colorArray[colorIndex];
+		$(".circleColor").css("color", hex);
+	}
+
+	function completeColor() {
+		var color = $(".circleColor").text();
+		if (color != lastColor && color != '') {
+			//clicky.log('/colors/', color, 'search')
+			lastColor = color;
+		}
+		clearTimeout(typeTimer);
 	}
 	// setInterval((function (){ addCode(xPositionsCircles)}))
 });

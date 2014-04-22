@@ -41,5 +41,13 @@
 
 .circleColor{
 	display: inline;
+	transition: 0.5s padding;
+    /*font-size: 15rem;*/
+    font-weight: bold;
+    /*padding: 8rem;*/
+    /*padding-left: 10rem;*/
+    outline: none;
+    z-index: 500;
+    /*position: relative;*/
 }
 
