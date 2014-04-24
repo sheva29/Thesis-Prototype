@@ -302,7 +302,7 @@ $(document).ready(function () {
 		var listItems = $('.code-list').find('li.' + circleCounter);
 		// console.log(listItems);
 		var len = circles.length;
-		for (var i = 0; i < circles.length; i++) {
+		for (var i = 0; i < len; i++) {
 			//We create one reference. This makes looking for one element more effective. Unless we need to search for a particular element
 			var currentItem = circles[i];
 			var updateStringRadius = "var radius = " + parseInt(currentItem.attrs.r) + ";";
@@ -313,7 +313,7 @@ $(document).ready(function () {
 			var circleItem = divItem.find("span.circle");
 			// console.log(currentItem.attrs.cx);
 			radiusItem.text(updateStringRadius);
-			console.log($('.circle-radius').html());
+			// console.log($('.circle-radius').html());
 			circleItem.text(updateStringCircle);
 			// divItem.text(updateString);
 			// console.log(divItem);
