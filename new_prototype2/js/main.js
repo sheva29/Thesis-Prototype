@@ -105,14 +105,14 @@ $(document).ready(function () {
 		var radius;
 		var fill;
 		var circle = canvas.circle(mouseX, mouseY, 50).attr({
-			fill: "hsb(.8, 1, 1)",
+			fill: "#f0f0f0",
 			stroke: "none",
 			opacity: .5,
 		});
 		// console.log(circles);
 		// We add an ID and a class to the circle
 		var ourCircle = $("circle").last();
-		ourCircle.attr("class", circleCounter);
+		ourCircle.attr("class", "circle-" + circleCounter);
 		// And then finally push it to our array of circles
 		circles.push(circle);
 		//Passing mouseX,mouseY and the circle counter
@@ -120,7 +120,7 @@ $(document).ready(function () {
 		// console.log($('circleColor'));
 		var handlerPos = [mouseX + 35, mouseY + 35];
 		var s = canvas.circle(handlerPos[0], handlerPos[1], 10).attr({
-			fill: "hsb(.8, .5, .5)",
+			fill: "000000",
 			stroke: "none",
 			opacity: .5
 		});
@@ -132,7 +132,7 @@ $(document).ready(function () {
 		// console.log(s);
 		s.hide();
 		//We now assign a handler for each little circle added and a main circle in order to hide them
-		var circleClass = $("." + String(circleCounter));
+		var circleClass = $(".circle-" + String(circleCounter));
 		var sizerID = $("#" + String(sizerCounter));
 		circleClass.mouseenter(function () {
 			sizerID.toggle();
@@ -205,9 +205,12 @@ $(document).ready(function () {
 		var htmlString = "<li class='circle-" + circleCounter + "'> <span class='circle-color'> var color = <div class='circle-color-input' contentEditable autocorrect='off'> type a color</div> ; </span> <br> <span class='circle-radius'> This is a test </span> <br> <span class='circle'> This is a test </span> </li>";
 		myCodeList.append(htmlString);
 		updateList();
-		// console.log(circle);
+		passingColor(circle.attrs.fill);
+		circle.attrs.fill = hex;
+		console.log(circle);
 		circleCounter++;
 		sizerCounter++;
+		console.log(circle.attrs.fill);
 		//I could also return a circle if I wanted
 		// return circle;
 	}
@@ -293,6 +296,15 @@ $(document).ready(function () {
 		// updateView();
 	}
 
+	function updateCircleColor(newColor, handlerClass) {
+		var len = circles.length;
+		for (var i = 0; i < len; i++) {
+			if (circles[i].node.className.baseVal == handlerClass) {
+				circles[i].attrs.fill = hex;
+			}
+		}
+	}
+
 	function updateList() {
 		//This will be the structure for my content
 		// <ul> 
@@ -320,12 +332,15 @@ $(document).ready(function () {
 	//Credit where is due. This was taken from Joel Califa's example https://github.com/jcalifa/Colors
 	//We are gonna use this function to pass the color to our circles from our code section
 	//--------Color Functions
-	function passingColor() {
-		// var $colorFieldClass = $(("." + String(circleCounter));)
-		var $colorFieldClass = $("li.circle-" + circleCounter).find("p.circle-color");
-		// console.log($colorFieldClass);
+	function passingColor(thisObjColor) {
+		var $circleLi = $("li.circle-" + circleCounter);
+		var $colorFieldSpan = $circleLi.find("span.circle-color");
+		var $colorFieldClass = $($colorFieldSpan).find(".circle-color-input");
+		console.log($circleLi[0].className);
+		console.log(document.getElementsByClassName("li.circle" + circleCounter));
+		// console.dir(document.documentElement);
 		$colorFieldClass.click(function () {
-			// console.log("I'm being clicked);
+			console.log("I'm being clicked");
 		});
 		var $contentEditable = $('[contenteditable]');
 		$contentEditable.on('focus', function () {
@@ -359,7 +374,10 @@ $(document).ready(function () {
 					});
 					hex = colorArray[colorIndex];
 					$colorFieldClass.css("color", hex);
-					// console.log(colorArray, colorIndex, hex);
+					// console.log("I'm changing");
+					thisObjColor = hex;
+					console.log(thisObjColor);
+					updateCircleColor(hex, $circleLi[0].className);
 				});
 			}
 		});
@@ -408,6 +426,17 @@ $(document).ready(function () {
 			lastColor = color;
 		}
 		clearTimeout(typeTimer);
+	}
+
+	function updateCircleColor(newColor, handlerClass) {
+		var len = circles.length;
+		for (var i = 0; i < len; i++) {
+			if (circles[i].node.className.baseVal == handlerClass) {
+				console.log(circles[i].node.className.baseVal, handlerClass);
+				circles[i].attr("fill", newColor);
+				console.log("circle color function");
+			}
+		}
 	}
 	// setInterval((function (){ addCode(xPositionsCircles)}))
 });
