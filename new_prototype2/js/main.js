@@ -15,11 +15,11 @@ $(document).ready(function () {
 	var circleSet = canvas.set();
 	var ourCanvas = $('svg').last();
 	ourCanvas.attr("id", "canvas");
-	var canvasHandler = $("#canvas");
+	var $canvasHandler = $("#canvas");
 	//We create a div with a class to append our canvas
 	var containerHandler = $("#container");
-	var sizerClass = $("circle.sizer");
-	var circlePicker = $('#picker-circle');
+	// var sizerClass = $("circle.sizer");
+	var $circlePicker = $('#picker-circle');
 	var codeElement = $('#code');
 	var circlePickerSelector = false;
 	//We use this array to store all the different circles that get drawn on the screen
@@ -46,7 +46,7 @@ $(document).ready(function () {
 	//
 	//
 	//
-	canvasHandler.mouseup(function (e) {
+	$canvasHandler.mouseup(function (e) {
 		// console.log(e);
 		// var mouseX = e.pageX - findPos(this)[0];
 		// var mouseY = e.pageY - findPos(this)[1];
@@ -66,7 +66,7 @@ $(document).ready(function () {
 		// }
 	});
 	// This is for my picker
-	circlePicker.click(function () {
+	$circlePicker.click(function () {
 		circlePickerSelector = !circlePickerSelector;
 		// booleanChecker(circlePickerSelector);
 		// console.log(circlePickerSelector);
@@ -202,7 +202,7 @@ $(document).ready(function () {
 		s.big = circle;
 		//Here we create
 		var myCodeList = $(".code-list");
-		var htmlString = "<li class='" + circleCounter + "'> <span class='circle-color'> var color = <div class='circle-color-input' contentEditable autocorrect='off'> type a color</div> ; </span> <br> <span class='circle-radius'> This is a test </span> <br> <span class='circle'> This is a test </span> </li>";
+		var htmlString = "<li class='circle-" + circleCounter + "'> <span class='circle-color'> var color = <div class='circle-color-input' contentEditable autocorrect='off'> type a color</div> ; </span> <br> <span class='circle-radius'> This is a test </span> <br> <span class='circle'> This is a test </span> </li>";
 		myCodeList.append(htmlString);
 		updateList();
 		// console.log(circle);
@@ -242,22 +242,6 @@ $(document).ready(function () {
 	// }
 	// This is also called when updating the model. Something has changed, move
 	// This gets called everytime the move function gets fired.
-	function updateModel(x, y, _class, r) {
-		var len = circles.length;
-		for (var i = 0; i < len; i++) {
-			//We check if the circle that's gonna be moved exists through its class and the we
-			if (circles[i].node.className.baseVal == _class) {
-				circles[i].attrs.cx = x;
-				circles[i].attrs.cy = y;
-				circles[i].attrs.r = r;
-				// console.log(x);
-			}
-		}
-		updateList();
-		//myCircleArray[id].x = x;
-		//myCircleArray[id].y = y;
-		// updateView();
-	}
 	//This is called whenever something changes within the array and renders the new values in the canvas
 	function updateView() {
 		$('#code').html(modelToString());
@@ -292,15 +276,31 @@ $(document).ready(function () {
 		return html;
 	}
 
+	function updateModel(x, y, _class, r) {
+		var len = circles.length;
+		for (var i = 0; i < len; i++) {
+			//We check if the circle that's gonna be moved exists through its class and the we
+			if (circles[i].node.className.baseVal == _class) {
+				circles[i].attrs.cx = x;
+				circles[i].attrs.cy = y;
+				circles[i].attrs.r = r;
+				// console.log(x);
+			}
+		}
+		updateList();
+		//myCircleArray[id].x = x;
+		//myCircleArray[id].y = y;
+		// updateView();
+	}
+
 	function updateList() {
+		//This will be the structure for my content
 		// <ul> 
 		//  <li>
 		//   <p class="">
 		//   <p class="radius">
 		//   <p class="circle">
-		//To change that one I have put a class or an id
-		var listItems = $('.code-list').find('li.' + circleCounter);
-		// console.log(listItems);
+		//To change that one I have put a class 
 		var len = circles.length;
 		for (var i = 0; i < len; i++) {
 			//We create one reference. This makes looking for one element more effective. Unless we need to search for a particular element
@@ -308,15 +308,13 @@ $(document).ready(function () {
 			var updateStringRadius = "var radius = " + parseInt(currentItem.attrs.r) + ";";
 			var updateStringCircle = "circle (" + currentItem.attrs.cx + " ," + currentItem.attrs.cy + ", radius)";
 			//This is the div Item for the particular div of each element
-			var divItem = $(listItems[i]);
+			var divItem = $('.code-list').find('li.circle-' + (i + 1));
 			var radiusItem = divItem.find("span.circle-radius");
 			var circleItem = divItem.find("span.circle");
-			// console.log(currentItem.attrs.cx);
 			radiusItem.text(updateStringRadius);
-			// console.log($('.circle-radius').html());
 			circleItem.text(updateStringCircle);
-			// divItem.text(updateString);
-			// console.log(divItem);
+			// console.log($('.circle-radius').html());
+			// console.log(currentItem.attrs.cx);
 		}
 	}
 	//Credit where is due. This was taken from Joel Califa's example https://github.com/jcalifa/Colors
@@ -324,7 +322,7 @@ $(document).ready(function () {
 	//--------Color Functions
 	function passingColor() {
 		// var $colorFieldClass = $(("." + String(circleCounter));)
-		var $colorFieldClass = $("li." + circleCounter).find("p.circle-color");
+		var $colorFieldClass = $("li.circle-" + circleCounter).find("p.circle-color");
 		// console.log($colorFieldClass);
 		$colorFieldClass.click(function () {
 			// console.log("I'm being clicked);
