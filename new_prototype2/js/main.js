@@ -12,7 +12,6 @@ $(document).ready(function () {
 	//
 	//We create our canvas and add an ID
 	var canvas = Raphael("container", 500, 500);
-	var circleSet = canvas.set();
 	var ourCanvas = $('svg').last();
 	ourCanvas.attr("id", "canvas");
 	var $canvasHandler = $("#canvas");
@@ -360,7 +359,7 @@ $(document).ready(function () {
 		$colorFieldClass.focus(function () {
 			// console.log(colorArray);
 		});
-		$colorFieldClass.change(function () {
+		$colorFieldClass.on('change', function () {
 			// console.log("I'm being changed");
 			// console.log($(this));
 			var inputText = $(this).text();
@@ -427,7 +426,7 @@ $(document).ready(function () {
 		}
 		clearTimeout(typeTimer);
 	}
-
+	//This function changes the color of each circle when typed
 	function updateCircleColor(newColor, handlerClass) {
 		var len = circles.length;
 		for (var i = 0; i < len; i++) {
