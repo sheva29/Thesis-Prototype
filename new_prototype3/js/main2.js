@@ -4,6 +4,7 @@ $(document).ready(function (e) {
 	var $canvasHandler = $("#second-exercise");
 	//This is our circle
 	var newCircle;
+	var circlePos = [];
 	// var line = canvas.path(["M", 0, 25, "L", 500, 25]);
 	// var circle = canvas.circle(250, 250, 50).attr({
 	// 	fill: "#f0f0f0",
@@ -35,7 +36,9 @@ $(document).ready(function (e) {
 		// 	fill: "red",
 		// 	stroke: "2px"
 		// });
+		// console.log(e);
 		updateCirclePos(e.offsetX, e.offsetY);
+		updatingPosition();
 	})
 
 	function drawCircle() {
@@ -53,9 +56,20 @@ $(document).ready(function (e) {
 					if (posY > j && posY < j + 25) {
 						newCircle.node.cx.baseVal.value = i + 12.5;
 						newCircle.node.cy.baseVal.value = j + 12.5;
+						circlePos[0] = (i / 25) + 1;
+						circlePos[1] = (j / 25) + 1;
 					}
 				}
 			}
 		}
+	}
+	var updatingPosition = function () {
+		//This is where the position in the canvas will be storing our
+		var $posXHandler = $('.posx');
+		var $posYHandler = $('.posy');
+		var posXHtmlString = 'position x = ' + circlePos[0];
+		var posYHtmlString = 'postion y = ' + circlePos[1];
+		$posXHandler.text(posXHtmlString);
+		$posYHandler.text(posYHtmlString);
 	}
 });
