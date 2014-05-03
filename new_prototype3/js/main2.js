@@ -50,8 +50,8 @@ $(document).ready(function (e) {
 	}
 
 	function updateCirclePos(posX, posY) {
-		for (var i = 0; i < 500; i += 25) {
-			for (var j = 0; j < 500; j += 25) {
+		for (var i = 1; i <= 500; i += 25) {
+			for (var j = 1; j <= 500; j += 25) {
 				if (posX > i && posX < i + 25) {
 					if (posY > j && posY < j + 25) {
 						newCircle.node.cx.baseVal.value = i + 12.5;
@@ -67,8 +67,8 @@ $(document).ready(function (e) {
 		//This is where the position in the canvas will be storing our
 		var $posXHandler = $('.posx');
 		var $posYHandler = $('.posy');
-		var posXHtmlString = 'position x = ' + circlePos[0];
-		var posYHtmlString = 'postion y = ' + circlePos[1];
+		var posXHtmlString = 'position x = ' + parseInt(circlePos[0]);
+		var posYHtmlString = 'postion y = ' + parseInt(circlePos[1]);
 		$posXHandler.text(posXHtmlString);
 		$posYHandler.text(posYHtmlString);
 	}

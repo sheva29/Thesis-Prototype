@@ -13,61 +13,15 @@
 	float: left;
 }
 
-#picker{	
-	float: left;
-	overflow: hidden;
-	width: 75px;
-}
-
-#picker-circle{
-	overflow: auto;
-	width: 50px;
-	height: 50px;
-	border-radius: 25px;
-	background-color: orange;
-}
-#picker-text{
-
-
-}
-
-#code{
-	float:left;
-	width: 300px;
-	overflow: auto;
-	height: 100%;
-	background-color: lightgreen;
-}
-
-.circle-color-input{
-	display: inline;
-	transition: 0.5s padding;
-    /*font-size: 15rem;*/
-    font-weight: bold;
-    /*padding: 8rem;*/
-    /*padding-left: 10rem;*/
-    outline: none;
-    z-index: 500;
-    /*position: relative;*/
-}
-
-.circle {
-	width:60px;
-	height:10px;
-	overflow: hidden;
-
-}
-
-.circle-radius{
-	width:100px;
-	height:10px;
-	overflow: hidden;
-}
-
 #side-container{
 	width: 200px;
 	height: 200px;
 	background-color: lightblue;
 	float: left;
+}
+
+ul{
+
+	list-style-type: none;
 }
 
