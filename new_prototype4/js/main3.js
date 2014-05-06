@@ -20,8 +20,7 @@ $(document).ready(function () {
 	var rectangle2Handler = canvas.rect(70, 0, 10, 100).attr({
 		fill: "green"
 	});
-	var rect2HandlerNewWidth = 0,
-		rect2HandlerNewX = 70;
+	var rect2HandlerNewX = 70;
 	//
 	//
 	//These are the functions for the first rectangle
@@ -32,6 +31,7 @@ $(document).ready(function () {
 		this.oy = this.attr("y");
 		this.box.ow = this.box.attr("width");
 		this.box.oh = this.box.attr("height");
+		console.log(rect2HandlerNewX);
 	},
 	rmove = function (dx, dy) {
 		this.attr({
@@ -42,11 +42,16 @@ $(document).ready(function () {
 			width: this.box.ow + dx
 			// height: this.box.oh + dy
 		});
+		//Every time we resize the first square we want to push the origin of the second one
 		rectangle2.node.attributes[0].nodeValue = rectangle.node.attributes[2].nodeValue;
-		rectangle2Handler.node.attributes[0].nodeValue = +rectangle2.node.attributes[0].nodeValue + +String(20);
-		console.log(rectangle2Handler.node.attributes[0].nodeValue);
-		rect2HandlerNewX = rectangle2.node.attributes[0].nodeValue;
-		rect2HandlerNewWidth = rectangle2Handler.node.attributes[0].nodeValue;
+		//We store the new position of the second square handler in a variable. The new position will be in respect to the both widths of the squares
+		rect2HandlerNewX = (+rectangle2.node.attributes[2].nodeValue + +rectangle.node.attributes[2].nodeValue) - +String(10);
+		//Then we pass it to the
+		rectangle2Handler.node.attributes[0].nodeValue = String(rect2HandlerNewX);
+		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
+		// rect2HandlerNewX = rectangle2.node.attributes[0].nodeValue;
+		// console.log(this.box.ow);
+		console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
 		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
 		// console.log(rectangle2.node.attributes[2].nodeValue);
 		// console.log(rectangle2);
@@ -62,23 +67,30 @@ $(document).ready(function () {
 		// if (rect2HandlerNewX == 0) {
 		// 	rect2HandlerNewX = this.attr("y");
 		// }
-		this.ox = parseInt(rect2HandlerNewX);
+		// this.ox = parseInt(rect2HandlerNewX);
+		console.log(rect2HandlerNewX);
+		this.ox = rect2HandlerNewX;
 		this.oy = this.attr("y");
-		this.box.ow = parseInt(rect2HandlerNewWidth);
+		// this.box.ow = parseInt(rect2HandlerNewWidth);
+		this.box.ow = this.box.attr("width");
 		this.box.oh = this.box.attr("height");
-		console.log(this.ox);
+		// console.log(this.box.attr);
 	},
 	rmove2 = function (dx, dy) {
 		this.attr({
-			x: this.ox + dx
+			x: +this.ox + dx
 			// y: this.oy + dy
 		});
 		this.box.attr({
 			width: this.box.ow + dx
 			// height: this.box.oh + dy
 		});
+		console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
+		// rectangle2Handler.node.attributes[0].nodeValue = rect2HandlerNewX + dx;
+		// console.log(this.box.ow);
 		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
 	};
 	rectangle2Handler.drag(rmove2, rstart2);
 	rectangle2Handler.box = rectangle2;
+	console.log(rectangle2Handler);
 });
