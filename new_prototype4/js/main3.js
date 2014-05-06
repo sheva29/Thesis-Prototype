@@ -21,6 +21,8 @@ $(document).ready(function () {
 		fill: "green"
 	});
 	var rect2HandlerNewX = 70;
+	var $rectangleOneText = $("#square-1");
+	var $rectangleTwoText = $("#square-2");
 	//
 	//
 	//These are the functions for the first rectangle
@@ -48,10 +50,12 @@ $(document).ready(function () {
 		rect2HandlerNewX = (+rectangle2.node.attributes[2].nodeValue + +rectangle.node.attributes[2].nodeValue) - +String(10);
 		//Then we pass it to the
 		rectangle2Handler.node.attributes[0].nodeValue = String(rect2HandlerNewX);
+		//We change the value of the text in our HTML
+		updateSquareOne();
 		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
 		// rect2HandlerNewX = rectangle2.node.attributes[0].nodeValue;
 		// console.log(this.box.ow);
-		console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
+		// console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
 		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
 		// console.log(rectangle2.node.attributes[2].nodeValue);
 		// console.log(rectangle2);
@@ -68,7 +72,7 @@ $(document).ready(function () {
 		// 	rect2HandlerNewX = this.attr("y");
 		// }
 		// this.ox = parseInt(rect2HandlerNewX);
-		console.log(rect2HandlerNewX);
+		// console.log(rect2HandlerNewX);
 		this.ox = rect2HandlerNewX;
 		this.oy = this.attr("y");
 		// this.box.ow = parseInt(rect2HandlerNewWidth);
@@ -85,12 +89,21 @@ $(document).ready(function () {
 			width: this.box.ow + dx
 			// height: this.box.oh + dy
 		});
-		console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
+		updateSquareTwo();
+		// console.log("handler position = " + rectangleHandler.node.attributes[0].nodeValue);
 		// rectangle2Handler.node.attributes[0].nodeValue = rect2HandlerNewX + dx;
 		// console.log(this.box.ow);
 		// console.log(rectangle2Handler.node.attributes[0].nodeValue);
 	};
 	rectangle2Handler.drag(rmove2, rstart2);
 	rectangle2Handler.box = rectangle2;
-	console.log(rectangle2Handler);
+	// console.log(rectangle2Handler);
+	updateSquareOne = function () {
+		var rectangleOneString = "X = " + rectangle.node.attributes[2].nodeValue;
+		$rectangleOneText.text(rectangleOneString);
+	}
+	updateSquareTwo = function () {
+		var rectangleTwoString = "Y = " + rectangle2.node.attributes[2].nodeValue;
+		$rectangleTwoText.text(rectangleTwoString);
+	}
 });
