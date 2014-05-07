@@ -2,6 +2,8 @@ $(document).ready(function () {
 	//We create our canvas an assign it a class
 	var canvas = Raphael("container", 500, 500);
 	canvas.canvas.id = "fifth-exercise";
+	//Here we change the coordinates of the canvas to the middle
+	canvas.setViewBox(-250, -250, 500, 500);
 	//we create our handler
 	var $canvasHandler = $("#fifth-exercise");
 	//This is our circle
@@ -26,8 +28,16 @@ $(document).ready(function () {
 	//Listeners/Events
 	//
 	//
+	$canvasHandler.mousemove(function (e) {
+		// var newMousePosX = e.offsetX - 250;
+		// var newMousePosY = e.offsetY - 250;
+		// console.log("Mouse pos in X: " + newMousePosX + "Mouse pos in Y: " + newMousePosY);
+	});
 	$canvasHandler.on("click", function (e) {
-		updateCirclePos(e.offsetX, e.offsetY);
+		//We need an offset since the the whole coordinate system was moved to the center of the canvas
+		var newMousePosX = e.offsetX - 250;
+		var newMousePosY = e.offsetY - 250;
+		updateCirclePos(newMousePosX, newMousePosY);
 		console.log("I'm being clicked");
 	});
 	//
@@ -36,7 +46,7 @@ $(document).ready(function () {
 	//
 	//
 	function drawCircle() {
-		newCircle = canvas.circle(width_two, height_two, 10).attr({
+		newCircle = canvas.circle(-250, -250, 10).attr({
 			fill: "blue",
 			stroke: "2px"
 		});
@@ -49,26 +59,26 @@ $(document).ready(function () {
 	}
 	//Use this as guides to see where the circle lands
 	function drawLines() {
-		//This draws horizontal lines
-		for (var i = 1; i < 25; i++) {
-			// var line = canvas.path(["M", (25 * i), 0, "L", (25 * i), 500]);
-			var line = canvas.path("M" + (25 * i) + ",0" + " L" + (25 * i) + ",500");
-		}
 		//This draws vertical lines
-		for (var i = 1; i < 25; i++) {
+		for (var i = -10; i < 10; i++) {
 			// var line = canvas.path(["M", (25 * i), 0, "L", (25 * i), 500]);
-			var line2 = canvas.path("M" + "0," + (25 * i) + " L" + "500," + (25 * i));
+			var line = canvas.path("M" + (25 * i) + "," + -height_two + " L" + (25 * i) + "," + height_two);
+		}
+		//This draws horizontal lines
+		for (var i = -10; i < 10; i++) {
+			// var line = canvas.path(["M", (25 * i), 0, "L", (25 * i), 500]);
+			var line2 = canvas.path("M" + -width_two + "," + (25 * i) + " L" + width_two + "," + (25 * i));
 		}
 	}
 	updateCirclePos = function (posX, posY) {
-		for (var i = 1; i <= 500; i += 25) {
-			for (var j = 1; j <= 500; j += 25) {
+		for (var i = -250; i <= 250; i += 25) {
+			for (var j = -250; j <= 250; j += 25) {
 				if (posX > i && posX < i + 25) {
 					if (posY > j && posY < j + 25) {
 						newCircle.node.cx.baseVal.value = i;
 						newCircle.node.cy.baseVal.value = j;
-						circlePos[0] = i + 1;
-						circlePos[1] = j + 1;
+						circlePos[0] = (i / 25) + 1;
+						circlePos[1] = (j / 25) + 1;
 						console.log("I'm being called");
 					}
 				}
