@@ -1,0 +1,27 @@
+#main-container{
+	width: 900px;
+	height: 600px;
+	margin: 200px auto;
+	overflow: auto;
+}
+
+#container{
+	margin-left: 25px;
+	background-color: gray;
+	width: 500px;
+	height: 500px;
+	float: left;
+}
+
+#side-container{
+	width: 200px;
+	height: 200px;
+	background-color: lightblue;
+	float: left;
+}
+
+ul{
+
+	list-style-type: none;
+}
+
