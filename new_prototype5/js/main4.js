@@ -19,7 +19,7 @@ $(document).ready(function () {
 	var height = canvas.height;
 	var width_two = canvas.width / 2;
 	var height_two = canvas.height / 2;
-	drawLines();
+	drawAxes();
 	drawCartisianPlane();
 	drawCircle();
 	// updateCirclePos(mouseX, mouseY);
@@ -34,11 +34,12 @@ $(document).ready(function () {
 		// console.log("Mouse pos in X: " + newMousePosX + "Mouse pos in Y: " + newMousePosY);
 	});
 	$canvasHandler.on("click", function (e) {
-		//We need an offset since the the whole coordinate system was moved to the center of the canvas
+		//We need an offset since the the whole coordinate system was moved to the center of the canvasx
 		var newMousePosX = e.offsetX - 250;
 		var newMousePosY = e.offsetY - 250;
 		updateCirclePos(newMousePosX, newMousePosY);
-		console.log("I'm being clicked");
+		updateModelView();
+		// console.log("I'm being clicked");
 	});
 	//
 	//
@@ -46,7 +47,7 @@ $(document).ready(function () {
 	//
 	//
 	function drawCircle() {
-		newCircle = canvas.circle(-250, -250, 10).attr({
+		newCircle = canvas.circle(0, 0, 10).attr({
 			fill: "blue",
 			stroke: "2px"
 		});
@@ -54,11 +55,13 @@ $(document).ready(function () {
 
 	function drawCartisianPlane() {
 		console.log(height_two);
-		var line = canvas.path("M0," + height_two + " L" + width + "," + height_two);
-		var line2 = canvas.path("M" + width_two + ",0 L" + width_two + "," + height);
+		var line = canvas.path("M-250," + 0 + " L" + 250 + "," + 0).attr({
+			"stroke-width": "2"
+		});
+		var line2 = canvas.path("M" + 0 + ",-250 L" + 0 + "," + 250).attr("stroke-width", "2");
 	}
 	//Use this as guides to see where the circle lands
-	function drawLines() {
+	function drawAxes() {
 		//This draws vertical lines
 		for (var i = -10; i < 10; i++) {
 			// var line = canvas.path(["M", (25 * i), 0, "L", (25 * i), 500]);
@@ -77,13 +80,24 @@ $(document).ready(function () {
 					if (posY > j && posY < j + 25) {
 						newCircle.node.cx.baseVal.value = i;
 						newCircle.node.cy.baseVal.value = j;
-						circlePos[0] = (i / 25) + 1;
-						circlePos[1] = (j / 25) + 1;
-						console.log("I'm being called");
+						//Here we pass the values of the coordinate system in the visual model.
+						//We multiply by -1 so that we can invert it
+						circlePos[0] = (i / 25);
+						circlePos[1] = (j / 25) * -1;
+						// console.log("I'm being called");
 					}
 				}
 			}
 		}
+	}
+	updateModelView = function () {
+		var $posXHandler = $(".posx");
+		var $posYHandler = $(".posy");
+		var posXHtmlString = "X = " + parseInt(circlePos[0]);
+		var posYHtmlString = "Y = " + parseInt(circlePos[1]);
+		$posXHandler.text(posXHtmlString);
+		$posYHandler.text(posYHtmlString);
+		console.log("I'm passing a string");
 	}
 	console.log(canvas);
 });
